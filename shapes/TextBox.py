@@ -59,3 +59,7 @@ class TextBox(Rectangle):
 
     def getFontSize(self) -> int:
         return self._font.pt_size
+
+    def setTextColor(self, color: kn.Color) -> TextBox:
+        self._text.color = color
+        return self

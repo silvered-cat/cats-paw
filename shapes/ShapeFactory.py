@@ -1,6 +1,7 @@
 from .Rectangle import Rectangle
 from .TextBox import TextBox
 import pykraken as kn
+from .MenuButton import MenuButton
 
 
 class ShapeFactory:
@@ -39,3 +40,19 @@ class ShapeFactory:
             dimensions[0], dimensions[1]
         ).setPosition(position[0], position[1]).setColor(color)
         return TextBox()
+
+    def createMenuButton(
+        self,
+        content: str = "Meow!",
+        fontSize: int = 24,
+        dimensions: tuple[float, float] = (100, 100),
+        position: tuple[float, float] = (0, 0),
+        color: kn.Color = kn.color.GRAY,
+        activeColor: kn.Color = kn.color.YELLOW,
+    ) -> MenuButton:
+        button = MenuButton()
+        button.setContent(content).setFontSize(fontSize).setDimensions(
+            dimensions[0], dimensions[1]
+        ).setPosition(position[0], position[1]).setColor(color)
+        button.setActiveColor(activeColor).setColor(color)
+        return button
