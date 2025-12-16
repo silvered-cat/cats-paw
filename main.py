@@ -2,8 +2,9 @@ import pykraken as kn
 from screens.Menu import Menu
 from queue import Queue
 from utils import Monitor
-from shapes.ShapeFactory import ShapeFactory
 from shapes.Shape import Shape
+from state.Game import Game
+from screens.screensEnum import ScreensEnum
 
 # Must get user monitor in order to become DPI aware
 USER_SCN = Monitor.getUserMonitorSize()
@@ -20,22 +21,30 @@ kn.init()
 # Create a fullscreen
 kn.window.create(GAME_TITLE, kn.Vec2(ADJUSTED_SCN[0], ADJUSTED_SCN[1]))
 
-# Create shapes
-shapeFactory = ShapeFactory()
+# Make Game State
+game = Game()
 
-titleScreen = Menu(ADJUSTED_SCN)
+# Create Screens
+screens = {
+    ScreensEnum.MENU: Menu(game),
+}
+
+
 renderQueue: Queue[Shape] = Queue()
-
+currentlyLoadedScreen = screens[ScreensEnum.MENU]
 # Need to poll events to keep the window responsive
 # Main loop
 while kn.window.is_open():
-    kn.event.poll()  # returns a list of events
     kn.renderer.clear()
+    events = kn.event.poll()  # returns a list of events
+    currentlyLoadedScreen.run(renderQueue)
+    for e in events:
+        currentlyLoadedScreen.handleEvent(e)
     while renderQueue.qsize() > 0:
         shape = renderQueue.get()
         shape.draw()
-
-    titleScreen.run(renderQueue)
     kn.renderer.present()
+    nextScreen = game.getCurrentScreen()
+    currentlyLoadedScreen = screens[nextScreen]
 # Cleanup
 kn.quit()

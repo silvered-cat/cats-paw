@@ -1,5 +1,5 @@
 from shapes.Button import Button
-from pykraken import Vec2, EventType, mouse, color, Color
+from pykraken import Vec2, EventType, mouse, color, Color, Event
 
 
 class MenuButton(Button):
@@ -29,18 +29,26 @@ class MenuButton(Button):
         return self
 
     def activate(self) -> MenuButton:
+        print("Activating Button")
+        if self.isActive():
+            return self
         currentDimensions = self.getNormalDimensions().copy()
         currentDimensions.scale_to_length(MenuButton.ACTIVE_SCALE)
+        currentDimensions.rotate(90)
         self.setDimensions(currentDimensions.x, currentDimensions.y)
         self.setColor(self._activeColor)
         self.setActive(True)
+        self.draw()
         return self
 
     def deactivate(self) -> MenuButton:
+        if not self.isActive():
+            return self
         normalDimensions = self.getNormalDimensions()
         self.setDimensions(normalDimensions.x, normalDimensions.y)
         self.setActive(False)
         self.setColor(self._normalColor)
+        self.draw()
         return self
 
     def isActive(self) -> bool:
@@ -50,20 +58,23 @@ class MenuButton(Button):
         self._isActive = isActive
         return self
 
-    def handleEvent(self, event: EventType) -> None:
-        if event == EventType.MOUSE_MOTION:
+    def handleEvent(self, event: Event) -> None:
+
+        if event.type == EventType.MOUSE_MOTION:
             thisButton = self.getRect()
             leftBound = thisButton.left
             rightBound = thisButton.right
-            topBound = thisButton.top
-            bottomBound = thisButton.bottom
+            topBound = thisButton.bottom  # Found a bug here, was inverted
+            bottomBound = thisButton.top  # Found a bug here, was inverted
             mousePos = mouse.get_pos()
-            isInsideHorizontally = (
-                leftBound <= mousePos[0] and rightBound >= mousePos[0]
-            )
-            isInsideVertically = bottomBound <= mousePos[1] and topBound >= mousePos[1]
+            isInsideHorizontally = leftBound <= mousePos.x and mousePos.x <= rightBound
+            isInsideVertically = bottomBound <= mousePos.y and mousePos.y <= topBound
             isInside = isInsideHorizontally and isInsideVertically
+            print(
+                f"mousePos.x: {mousePos.x}, mousePos.y: {mousePos.y}, Button Bounds: L:{leftBound}, R:{rightBound}, T:{topBound}, B:{bottomBound}"
+            )
             if isInside:
+                print("Running the Events in: MenuButton")
                 self.activate()
             else:
                 self.deactivate()
