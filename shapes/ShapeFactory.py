@@ -4,6 +4,15 @@ import pykraken as kn
 from .MenuButton import MenuButton
 
 
+# Default parameters
+DEFAULT_COLOR = kn.color.GRAY
+DEFAULT_DIMENSIONS = (100.00, 100.00)
+DEFAULT_POSITION = (0.00, 0.00)
+DEFAULT_CONTENT = "Meow!"
+DEFAULT_FONT_SIZE = 24
+DEFAULT_ACTIVE_COLOR = kn.color.YELLOW
+
+
 class ShapeFactory:
     """Creates various Shape instances."""
 
@@ -12,9 +21,9 @@ class ShapeFactory:
 
     def createRectangle(
         self,
-        dimensions: tuple[float, float] = (100, 100),
-        position: tuple[float, float] = (0, 0),
-        color: kn.Color = kn.color.GRAY,
+        dimensions: tuple[float, float] = DEFAULT_DIMENSIONS,
+        position: tuple[float, float] = DEFAULT_POSITION,
+        color: kn.Color = DEFAULT_COLOR,
     ) -> Rectangle:
         """Creates a Rectangle shape with optional dimensions, position, and color."""
         rect = Rectangle()
@@ -25,11 +34,11 @@ class ShapeFactory:
 
     def createTextBox(
         self,
-        content: str = "Meow!",
-        fontSize: int = 24,
-        dimensions: tuple[float, float] = (100, 100),
-        position: tuple[float, float] = (0, 0),
-        color: kn.Color = kn.color.GRAY,
+        content: str = DEFAULT_CONTENT,
+        fontSize: int = DEFAULT_FONT_SIZE,
+        dimensions: tuple[float, float] = DEFAULT_DIMENSIONS,
+        position: tuple[float, float] = DEFAULT_POSITION,
+        color: kn.Color = DEFAULT_COLOR,
     ) -> TextBox:
         """
         Creates a TextBox shape with optional content, font size, dimensions, position, and color.
@@ -43,12 +52,12 @@ class ShapeFactory:
 
     def createMenuButton(
         self,
-        content: str = "Meow!",
-        fontSize: int = 24,
-        dimensions: tuple[float, float] = (100, 100),
-        position: tuple[float, float] = (0, 0),
-        color: kn.Color = kn.color.GRAY,
-        activeColor: kn.Color = kn.color.YELLOW,
+        content: str = DEFAULT_CONTENT,
+        fontSize: int = DEFAULT_FONT_SIZE,
+        dimensions: tuple[float, float] = DEFAULT_DIMENSIONS,
+        position: tuple[float, float] = DEFAULT_POSITION,
+        color: kn.Color = DEFAULT_COLOR,
+        activeColor: kn.Color = DEFAULT_ACTIVE_COLOR,
     ) -> MenuButton:
         """
         Creates a MenuButton shape with optional content, font size, dimensions, position, color, and active color.

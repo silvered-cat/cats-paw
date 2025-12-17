@@ -1,5 +1,5 @@
 from shapes.Button import Button
-from pykraken import EventType, mouse, color, Color, Event, Rect, draw, Vec2
+from pykraken import EventType, mouse, color, Color, Event, draw, Vec2
 
 
 class MenuButton(Button):
