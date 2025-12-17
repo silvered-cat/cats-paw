@@ -25,6 +25,11 @@ kn.window.create(GAME_TITLE, kn.Vec2(ADJUSTED_SCN[0], ADJUSTED_SCN[1]))
 
 # Make Game State
 game = Game()
+game.setCurrentScreen(ScreensEnum.MENU)
+
+# Testing
+game.setCurrentScreen(ScreensEnum.BATTLE)
+
 
 # Create Screens
 screens: dict[ScreensEnum, Screen] = {
@@ -34,7 +39,8 @@ screens: dict[ScreensEnum, Screen] = {
 
 
 renderQueue: Queue[Shape] = Queue()
-currentlyLoadedScreen = screens[ScreensEnum.MENU]
+
+currentlyLoadedScreen = screens[game.getCurrentScreen()]
 # Need to poll events to keep the window responsive
 # Main loop
 while kn.window.is_open():
