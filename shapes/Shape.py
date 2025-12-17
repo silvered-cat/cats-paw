@@ -8,8 +8,8 @@ class Shape(ABC):
     Note: Remember to initialize pykraken before creating any shapes!
 
     Attributes:
-        _position (kn.Vec2): The position of the shape.
-        _color (kn.Color): The color of the shape.
+        _position (Vec2): The position of the shape.
+        _color (Color): The color of the shape.
     """
 
     def __init__(self) -> None:
@@ -29,11 +29,11 @@ class Shape(ABC):
 
     @abstractmethod
     def getPosition(self) -> kn.Vec2:
-        """Returns the current position of the shape. Unless set, defaults to center of shape."""
+        """Returns the current position of the shape."""
         pass
 
     def setColor(self, color: kn.Color) -> Shape:
-        """Sets the color of the shape unless a texture is applied."""
+        """Sets the color of the shape."""
         self._color = color
         return self
 

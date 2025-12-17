@@ -50,6 +50,10 @@ class ShapeFactory:
         color: kn.Color = kn.color.GRAY,
         activeColor: kn.Color = kn.color.YELLOW,
     ) -> MenuButton:
+        """
+        Creates a MenuButton shape with optional content, font size, dimensions, position, color, and active color.
+        Note: MenuButton uses kraken-clean font and size 24 by default. To change font size, use setFontSize() on the returned MenuButton.
+        """
         button = MenuButton()
         button.setContent(content).setFontSize(fontSize).setDimensions(
             dimensions[0], dimensions[1]

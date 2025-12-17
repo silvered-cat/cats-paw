@@ -9,40 +9,41 @@ class Rectangle(Shape):
     """
     Represents a rectangle shape that can be drawn on the screen. Inherits from Shape.
     Attributes:
-        _rect (Rect): An instance of the pykraken Rect class.
+        _rect (Rect): An instance of the pykraken Rect class. Do not replace this.
         _texture (Texture | None): The texture applied to the rectangle, if any.
         _dimensions (Vec2): The width and height of the rectangle using the pykraken Vec2 class.
         _thickness (int): The thickness of the rectangle's border.
 
     """
 
+    DEFAULT_THICKNESS = 1
+
     def __init__(self):
         super().__init__()
         self._rect = kn.Rect()
         rect = kn.Rect()
         self._rect: kn.Rect = rect
-        self._thickness = 1
+        self._thickness = Rectangle.DEFAULT_THICKNESS
 
     def draw(self) -> None:
+        """Draws the rectangle to the buffer. Typically called by main.py."""
         color = self.getColor()
         rect = self.getRect()
         thick = self.getThickness()
         kn.draw.rect(rect, color, thick)
 
     def setThickness(self, thickness: int) -> Rectangle:
+        """Sets the thickness of the rectangle's border. Default is 1."""
         self._thickness = thickness
         return self
 
     def getThickness(self) -> int:
+        """Returns the thickness of the rectangle's border."""
         return self._thickness
 
     def getRect(self) -> kn.Rect:
+        """Returns the internal Rect instance. Direct changes will reflect on the shape."""
         return self._rect
-
-    def setRect(self, rect: kn.Rect) -> Rectangle:
-        """Sets the internal Rect instance."""
-        self._rect = rect
-        return self
 
     def setDimensions(self, width: float, height: float) -> Rectangle:
         """Updates the dimensions of the rectangle."""
@@ -51,6 +52,7 @@ class Rectangle(Shape):
         return self
 
     def getDimensions(self) -> kn.Vec2:
+        """Returns the dimensions of the rectangle as a Vec2 (width, height)."""
         return self.getRect().size
 
     @typing.override
@@ -62,9 +64,11 @@ class Rectangle(Shape):
 
     @typing.override
     def setColor(self, color: kn.Color) -> Rectangle:
+        """Sets the color of the rectangle."""
         super().setColor(color)
         return self
 
     @typing.override
     def getPosition(self) -> kn.Vec2:
+        """Returns the rectangle's position as a Vec2 from the center of the shape."""
         return self.getRect().center
