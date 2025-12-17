@@ -8,3 +8,6 @@ class ScreensEnum(enum.IntEnum):
     """
 
     MENU = enum.auto()
+    BATTLE = enum.auto()
+    RESOLVE = enum.auto()
+    GAMEOVER = enum.auto()

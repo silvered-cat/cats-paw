@@ -72,3 +72,6 @@ class MenuButton(Button):
                 self.activate()
             elif not isInside and self.isActive():
                 self.deactivate()
+        if event.type == EventType.MOUSE_BUTTON_DOWN:
+            if self.isActive():
+                self.onClick()

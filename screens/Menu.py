@@ -3,8 +3,9 @@ from shapes.Shape import Shape
 from shapes.MenuButton import MenuButton
 from .Screen import Screen
 from queue import Queue
-from pykraken import color, Event
+from pykraken import color, Event, window
 from state.Game import Game
+from screens.screensEnum import ScreensEnum
 
 
 class Menu(Screen):
@@ -25,10 +26,11 @@ class Menu(Screen):
     def __init__(self, gameState: Game) -> None:
         super().__init__(gameState)
         self._shapes = ShapeFactory()
-        self._options: tuple[MenuButton, MenuButton] = (
+        options = (
             self.makeStartButton(gameState.getWindowSize()),
             self.makeQuitButton(gameState.getWindowSize()),
         )
+        self._options: tuple[MenuButton, MenuButton] = options
         self._game = gameState
 
     def makeStartButton(self, monitor_size: tuple[float, float]) -> MenuButton:
@@ -49,7 +51,12 @@ class Menu(Screen):
             color=color.RED,
         )
         button.setTextColor(color.WHITE)
+        button.setCallback(self.startCallback)
         return button
+
+    def startCallback(self) -> None:
+        """Callback function for starting the game."""
+        self._game.setCurrentScreen(ScreensEnum.BATTLE)
 
     def makeQuitButton(self, monitor_size: tuple[float, float]) -> MenuButton:
         """Creates the quit button for the menu screen."""
@@ -69,7 +76,12 @@ class Menu(Screen):
             color=color.GREY,
         )
         button.setTextColor(color.WHITE)
+        button.setCallback(self.quitCallback)
         return button
+
+    def quitCallback(self) -> None:
+        """Callback function for quitting the game."""
+        window.close()
 
     def run(self, renderQueue: Queue[Shape]) -> None:
         """Handles the rendering order of the menu screen."""

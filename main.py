@@ -1,6 +1,8 @@
 import pykraken as kn
+from screens.Battle import Battle
 from screens.Menu import Menu
 from queue import Queue
+from screens.Screen import Screen
 from utils import Monitor
 from shapes.Shape import Shape
 from state.Game import Game
@@ -25,8 +27,9 @@ kn.window.create(GAME_TITLE, kn.Vec2(ADJUSTED_SCN[0], ADJUSTED_SCN[1]))
 game = Game()
 
 # Create Screens
-screens = {
+screens: dict[ScreensEnum, Screen] = {
     ScreensEnum.MENU: Menu(game),
+    ScreensEnum.BATTLE: Battle(game),
 }
 
 
