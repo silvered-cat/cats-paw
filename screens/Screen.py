@@ -2,12 +2,13 @@ import abc
 from queue import Queue
 from shapes.Shape import Shape
 from pykraken import Event
+from state.Game import Game
 
 
 class Screen(abc.ABC):
 
     @abc.abstractmethod
-    def __init__(self) -> None:
+    def __init__(self, game: Game) -> None:
         pass
 
     @abc.abstractmethod
