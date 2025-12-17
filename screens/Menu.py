@@ -35,23 +35,22 @@ class Menu(Screen):
 
     def makeStartButton(self, monitor_size: tuple[float, float]) -> MenuButton:
         """Creates the start button for the menu screen."""
-        dimensions = (
-            monitor_size[0] * self.BUTTON_RATIO,
-            monitor_size[1] * self.BUTTON_RATIO,
+
+        w = monitor_size[0] * self.BUTTON_RATIO
+        h = monitor_size[1] * self.BUTTON_RATIO
+
+        x = monitor_size[0] / 4
+        y = monitor_size[1] * 0.75
+
+        button = self._shapes.createMenuButton()
+        (
+            button.setActiveColor(color.GREEN)
+            .setCallback(self.startCallback)
+            .setTextColor(color.WHITE)
+            .setContent("Start Game")
+            .setPosition(x, y)
+            .setDimensions(w, h)
         )
-        pos = (
-            monitor_size[0] / 4,
-            monitor_size[1] * 0.75,
-        )
-        button = self._shapes.createMenuButton(
-            content="Start Game",
-            position=pos,
-            dimensions=dimensions,
-            activeColor=color.GREEN,
-            color=color.RED,
-        )
-        button.setTextColor(color.WHITE)
-        button.setCallback(self.startCallback)
         return button
 
     def startCallback(self) -> None:
@@ -60,23 +59,22 @@ class Menu(Screen):
 
     def makeQuitButton(self, monitor_size: tuple[float, float]) -> MenuButton:
         """Creates the quit button for the menu screen."""
-        dimensions = (
-            monitor_size[0] * self.BUTTON_RATIO,
-            monitor_size[1] * self.BUTTON_RATIO,
+
+        w = monitor_size[0] * self.BUTTON_RATIO
+        h = monitor_size[1] * self.BUTTON_RATIO
+
+        x = monitor_size[0] * 0.75
+        y = monitor_size[1] * 0.75
+
+        button = self._shapes.createMenuButton()
+        (
+            button.setActiveColor(color.GREEN)
+            .setCallback(self.quitCallback)
+            .setTextColor(color.WHITE)
+            .setContent("Quit Game")
+            .setPosition(x, y)
+            .setDimensions(w, h)
         )
-        pos = (
-            monitor_size[0] * 0.75,
-            monitor_size[1] * 0.75,
-        )
-        button = self._shapes.createMenuButton(
-            content="Quit Game",
-            position=pos,
-            dimensions=dimensions,
-            activeColor=color.GREEN,
-            color=color.GREY,
-        )
-        button.setTextColor(color.WHITE)
-        button.setCallback(self.quitCallback)
         return button
 
     def quitCallback(self) -> None:
