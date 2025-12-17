@@ -1,22 +1,28 @@
 from shapes.Button import Button
-from pykraken import Vec2, EventType, mouse, color, Color, Event
+from pykraken import EventType, mouse, color, Color, Event, Rect, draw, Vec2
 
 
 class MenuButton(Button):
-    ACTIVE_SCALE = 1.1
+    INFLATION_AMOUNT = Vec2(20, 20)
 
     def __init__(self):
         super().__init__()
-        self._normalDimensions = self.getDimensions().copy()
         self._isActive = False
         self._activeColor: Color = color.YELLOW
         self._normalColor: Color = self.getColor()
 
-    def getNormalDimensions(self) -> Vec2:
-        return self._normalDimensions
+    def draw(self) -> None:
+        super().draw()
+        if self.isActive():
+            draw.rect(self.getRect(), self._activeColor, self.getThickness())
+        else:
+            draw.rect(self.getRect(), self._normalColor, self.getThickness())
 
-    def setNormalDimensions(self, dimensions: Vec2) -> MenuButton:
-        self._normalDimensions = dimensions
+    def getOriginalSelf(self) -> Rect:
+        return self._originalSelf
+
+    def setOriginalSelf(self, rect: Rect) -> MenuButton:
+        self._originalSelf = rect
         return self
 
     def setColor(self, color: Color) -> MenuButton:
@@ -29,26 +35,17 @@ class MenuButton(Button):
         return self
 
     def activate(self) -> MenuButton:
-        print("Activating Button")
         if self.isActive():
             return self
-        currentDimensions = self.getNormalDimensions().copy()
-        currentDimensions.scale_to_length(MenuButton.ACTIVE_SCALE)
-        currentDimensions.rotate(90)
-        self.setDimensions(currentDimensions.x, currentDimensions.y)
-        self.setColor(self._activeColor)
         self.setActive(True)
-        self.draw()
+        self.getRect().inflate(MenuButton.INFLATION_AMOUNT)
         return self
 
     def deactivate(self) -> MenuButton:
         if not self.isActive():
             return self
-        normalDimensions = self.getNormalDimensions()
-        self.setDimensions(normalDimensions.x, normalDimensions.y)
         self.setActive(False)
-        self.setColor(self._normalColor)
-        self.draw()
+        self.getRect().inflate(-MenuButton.INFLATION_AMOUNT)
         return self
 
     def isActive(self) -> bool:
@@ -59,22 +56,16 @@ class MenuButton(Button):
         return self
 
     def handleEvent(self, event: Event) -> None:
-
         if event.type == EventType.MOUSE_MOTION:
-            thisButton = self.getRect()
-            leftBound = thisButton.left
-            rightBound = thisButton.right
-            topBound = thisButton.bottom  # Found a bug here, was inverted
-            bottomBound = thisButton.top  # Found a bug here, was inverted
             mousePos = mouse.get_pos()
-            isInsideHorizontally = leftBound <= mousePos.x and mousePos.x <= rightBound
-            isInsideVertically = bottomBound <= mousePos.y and mousePos.y <= topBound
+            x = mousePos.x
+            y = mousePos.y
+            rect = self.getRect()
+            isInsideHorizontally = rect.left <= x and x <= rect.right
+            isInsideVertically = rect.top <= y and y <= rect.bottom
             isInside = isInsideHorizontally and isInsideVertically
-            print(
-                f"mousePos.x: {mousePos.x}, mousePos.y: {mousePos.y}, Button Bounds: L:{leftBound}, R:{rightBound}, T:{topBound}, B:{bottomBound}"
-            )
-            if isInside:
-                print("Running the Events in: MenuButton")
+
+            if isInside and not self.isActive():
                 self.activate()
-            else:
+            elif not isInside and self.isActive():
                 self.deactivate()

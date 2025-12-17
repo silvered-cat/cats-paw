@@ -37,9 +37,9 @@ currentlyLoadedScreen = screens[ScreensEnum.MENU]
 while kn.window.is_open():
     kn.renderer.clear()
     events = kn.event.poll()  # returns a list of events
-    currentlyLoadedScreen.run(renderQueue)
     for e in events:
         currentlyLoadedScreen.handleEvent(e)
+    currentlyLoadedScreen.run(renderQueue)
     while renderQueue.qsize() > 0:
         shape = renderQueue.get()
         shape.draw()

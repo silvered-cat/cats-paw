@@ -14,7 +14,6 @@ class Shape(ABC):
 
     def __init__(self) -> None:
         super().__init__()
-        self._position = kn.Vec2(0, 0)
         self._color = kn.color.GREY
 
     @abstractmethod

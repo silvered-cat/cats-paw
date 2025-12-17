@@ -19,12 +19,10 @@ class TextBox(Rectangle):
         self._content = "I love Cats!!"
         self._anchor = kn.Anchor.CENTER
         text = kn.Text(self._font)
-
         self._text = text
 
     def draw(self) -> None:
         super().draw()
-
         self._text.draw(self.getPosition(), self.getAnchor())
 
     def setAnchor(self, anchor: kn.Anchor) -> TextBox:
@@ -46,7 +44,6 @@ class TextBox(Rectangle):
         return self._content
 
     def setFont(self, font: str) -> TextBox:
-
         self._font = kn.Font(font, self._font.pt_size)
         return self
 
