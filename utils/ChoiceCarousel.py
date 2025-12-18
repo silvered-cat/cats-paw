@@ -16,7 +16,7 @@ class ChoiceCarousel:
 
     def __init__(self):
         self._head: ChoiceNode | None = None
-        self._current: ChoiceNode | None = ChoiceNode(ChoiceEnum.NONE)
+        self._current: ChoiceNode | None
         self._initList()
 
     def _initList(self):
@@ -29,11 +29,18 @@ class ChoiceCarousel:
 
         # This will make a circular linked list.
         lastNode.next = self._head
+        self._current = self._head
+        if self._head is None:
+            raise ValueError(
+                "_head attribute in ChoiceCarousel is None when expecting ChoiceNode."
+            )
+        self._head.previous = lastNode
 
     def _addNewNode(self, node: ChoiceNode):
         """Internal method to add a new node."""
         if self._head is None:
             self._head = node
+            return
 
         currentNode: ChoiceNode | None = self._head
 
@@ -61,6 +68,8 @@ class ChoiceCarousel:
             return
         self._current = self._current.previous
 
-    def getCurrentChoice(self) -> ChoiceNode | None:
+    def getCurrentChoice(self) -> ChoiceEnum:
         """Gets the current ChoiceEnum."""
-        return self._current
+        if self._current is None:
+            return ChoiceEnum.NONE
+        return self._current.choice
