@@ -5,6 +5,7 @@ class ChoiceNode:
     def __init__(self, data: ChoiceEnum):
         self.choice: ChoiceEnum = data
         self.next: ChoiceNode | None = None
+        self.previous: ChoiceNode | None = None
 
 
 class ChoiceCarousel:
@@ -34,11 +35,17 @@ class ChoiceCarousel:
             currentNode = currentNode.next
 
         currentNode.next = node
+        node.previous = currentNode
 
     def nextNode(self):
         if self._current is None:
             return
         self._current = self._current.next
+
+    def previousNode(self):
+        if self._current is None:
+            return
+        self._current = self._current.previous
 
     def getCurrentChoice(self) -> ChoiceNode | None:
         return self._current
