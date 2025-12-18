@@ -1,6 +1,7 @@
 import pykraken as kn
 from screens.Battle import Battle
 from screens.Menu import Menu
+from screens.Resolve import Resolve
 from queue import Queue
 from screens.Screen import Screen
 from utils import Monitor
@@ -35,6 +36,7 @@ game.setCurrentScreen(ScreensEnum.BATTLE)
 screens: dict[ScreensEnum, Screen] = {
     ScreensEnum.MENU: Menu(game),
     ScreensEnum.BATTLE: Battle(game),
+    ScreensEnum.RESOLVE: Resolve(game),
 }
 
 

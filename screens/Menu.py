@@ -26,11 +26,11 @@ class Menu(Screen):
     def __init__(self, gameState: Game) -> None:
         super().__init__(gameState)
         self._shapes = ShapeFactory()
-        options = (
+        options: list[Shape] = [
             self.makeStartButton(gameState.getWindowSize()),
             self.makeQuitButton(gameState.getWindowSize()),
-        )
-        self._options: tuple[MenuButton, MenuButton] = options
+        ]
+        self._options: list[Shape] = options
         self._game = gameState
 
     def makeStartButton(self, monitor_size: tuple[float, float]) -> MenuButton:
@@ -87,7 +87,7 @@ class Menu(Screen):
         renderQueue.put(self._options[1])
         return
 
-    def getOptions(self) -> tuple[MenuButton, MenuButton]:
+    def getOptions(self) -> list[Shape]:
         """Returns the menu options (buttons)."""
         return self._options
 
