@@ -9,12 +9,18 @@ class ChoiceNode:
 
 
 class ChoiceCarousel:
+    """
+    A wrapper for a circular double linked list of type ChoiceEnum. Has all ChoiceEnums except NONE.
+    Note: does not have any None references in the list and will trigger infinite while loops.
+    """
+
     def __init__(self):
         self._head: ChoiceNode | None = None
         self._current: ChoiceNode | None = ChoiceNode(ChoiceEnum.NONE)
         self._initList()
 
     def _initList(self):
+        """Internal method to add all ChoiceEnums to the list."""
         self._addNewNode(ChoiceNode(ChoiceEnum.CLAW))
         self._addNewNode(ChoiceNode(ChoiceEnum.SMACK))
 
@@ -25,7 +31,7 @@ class ChoiceCarousel:
         lastNode.next = self._head
 
     def _addNewNode(self, node: ChoiceNode):
-
+        """Internal method to add a new node."""
         if self._head is None:
             self._head = node
 
@@ -38,14 +44,23 @@ class ChoiceCarousel:
         node.previous = currentNode
 
     def nextNode(self):
+        """
+        Updates the current attribute to the next ChoiceEnum.
+        Will recycle to the head automatically.
+        """
         if self._current is None:
             return
         self._current = self._current.next
 
     def previousNode(self):
+        """
+        Updates the current attribute to the previous ChoiceEnum.
+        Will recycle to the head automatically.
+        """
         if self._current is None:
             return
         self._current = self._current.previous
 
     def getCurrentChoice(self) -> ChoiceNode | None:
+        """Gets the current ChoiceEnum."""
         return self._current
