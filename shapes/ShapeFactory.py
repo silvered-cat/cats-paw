@@ -2,6 +2,7 @@ from .Rectangle import Rectangle
 from .TextBox import TextBox
 import pykraken as kn
 from .MenuButton import MenuButton
+from .UpdatingTextBox import UpdatingTextBox
 
 
 # Default parameters
@@ -49,3 +50,15 @@ class ShapeFactory:
         ).setPosition(DEFAULT_POSITION[0], DEFAULT_POSITION[1]).setColor(DEFAULT_COLOR)
         button.setActiveColor(DEFAULT_ACTIVE_COLOR).setColor(DEFAULT_COLOR)
         return button
+
+    def createUpdatingTextBox(self) -> UpdatingTextBox:
+        """
+        This is a TextBox that updates its content every frame by calling a getter method that returns a string.
+        The bound function must not have any parameters and must return a string.
+        All the default parameters of TextBox apply here as well.
+        """
+        rect = UpdatingTextBox()
+        rect.setContent(DEFAULT_CONTENT).setFontSize(DEFAULT_FONT_SIZE).setDimensions(
+            DEFAULT_DIMENSIONS[0], DEFAULT_DIMENSIONS[1]
+        ).setPosition(DEFAULT_POSITION[0], DEFAULT_POSITION[1]).setColor(DEFAULT_COLOR)
+        return rect

@@ -45,3 +45,6 @@ class Shape(ABC):
     def draw(self) -> None:
         """Wraps the drawing logic from pykraken."""
         pass
+
+    def handleEvent(self, event: kn.Event) -> None:
+        pass
