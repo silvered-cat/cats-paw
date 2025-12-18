@@ -1,6 +1,7 @@
 import pykraken as kn
 from screens.Battle import Battle
 from screens.Menu import Menu
+from screens.Resolve import Resolve
 from queue import Queue
 from screens.Screen import Screen
 from utils import Monitor
@@ -25,16 +26,23 @@ kn.window.create(GAME_TITLE, kn.Vec2(ADJUSTED_SCN[0], ADJUSTED_SCN[1]))
 
 # Make Game State
 game = Game()
+game.setCurrentScreen(ScreensEnum.MENU)
+
+# Testing
+game.setCurrentScreen(ScreensEnum.BATTLE)
+
 
 # Create Screens
 screens: dict[ScreensEnum, Screen] = {
     ScreensEnum.MENU: Menu(game),
     ScreensEnum.BATTLE: Battle(game),
+    ScreensEnum.RESOLVE: Resolve(game),
 }
 
 
 renderQueue: Queue[Shape] = Queue()
-currentlyLoadedScreen = screens[ScreensEnum.MENU]
+
+currentlyLoadedScreen = screens[game.getCurrentScreen()]
 # Need to poll events to keep the window responsive
 # Main loop
 while kn.window.is_open():

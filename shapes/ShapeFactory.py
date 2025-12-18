@@ -2,6 +2,7 @@ from .Rectangle import Rectangle
 from .TextBox import TextBox
 import pykraken as kn
 from .MenuButton import MenuButton
+from .UpdatingTextBox import UpdatingTextBox
 
 
 # Default parameters
@@ -19,53 +20,45 @@ class ShapeFactory:
     def __init__(self) -> None:
         pass
 
-    def createRectangle(
-        self,
-        dimensions: tuple[float, float] = DEFAULT_DIMENSIONS,
-        position: tuple[float, float] = DEFAULT_POSITION,
-        color: kn.Color = DEFAULT_COLOR,
-    ) -> Rectangle:
+    def createRectangle(self) -> Rectangle:
         """Creates a Rectangle shape with optional dimensions, position, and color."""
         rect = Rectangle()
-        rect.setDimensions(dimensions[0], dimensions[1]).setPosition(
-            position[0], position[1]
-        ).setColor(color)
+        rect.setDimensions(DEFAULT_DIMENSIONS[0], DEFAULT_DIMENSIONS[1]).setPosition(
+            DEFAULT_POSITION[0], DEFAULT_POSITION[1]
+        ).setColor(DEFAULT_COLOR)
         return rect
 
-    def createTextBox(
-        self,
-        content: str = DEFAULT_CONTENT,
-        fontSize: int = DEFAULT_FONT_SIZE,
-        dimensions: tuple[float, float] = DEFAULT_DIMENSIONS,
-        position: tuple[float, float] = DEFAULT_POSITION,
-        color: kn.Color = DEFAULT_COLOR,
-    ) -> TextBox:
+    def createTextBox(self) -> TextBox:
         """
         Creates a TextBox shape with optional content, font size, dimensions, position, and color.
         Note: TextBox uses kraken-clean font and size 24 by default. To change font size, use setFontSize() on the returned TextBox.
         """
         rect = TextBox()
-        rect.setContent(content).setFontSize(fontSize).setDimensions(
-            dimensions[0], dimensions[1]
-        ).setPosition(position[0], position[1]).setColor(color)
-        return TextBox()
+        rect.setContent(DEFAULT_CONTENT).setFontSize(DEFAULT_FONT_SIZE).setDimensions(
+            DEFAULT_DIMENSIONS[0], DEFAULT_DIMENSIONS[1]
+        ).setPosition(DEFAULT_POSITION[0], DEFAULT_POSITION[1]).setColor(DEFAULT_COLOR)
+        return rect
 
-    def createMenuButton(
-        self,
-        content: str = DEFAULT_CONTENT,
-        fontSize: int = DEFAULT_FONT_SIZE,
-        dimensions: tuple[float, float] = DEFAULT_DIMENSIONS,
-        position: tuple[float, float] = DEFAULT_POSITION,
-        color: kn.Color = DEFAULT_COLOR,
-        activeColor: kn.Color = DEFAULT_ACTIVE_COLOR,
-    ) -> MenuButton:
+    def createMenuButton(self) -> MenuButton:
         """
         Creates a MenuButton shape with optional content, font size, dimensions, position, color, and active color.
         Note: MenuButton uses kraken-clean font and size 24 by default. To change font size, use setFontSize() on the returned MenuButton.
         """
         button = MenuButton()
-        button.setContent(content).setFontSize(fontSize).setDimensions(
-            dimensions[0], dimensions[1]
-        ).setPosition(position[0], position[1]).setColor(color)
-        button.setActiveColor(activeColor).setColor(color)
+        button.setContent(DEFAULT_CONTENT).setFontSize(DEFAULT_FONT_SIZE).setDimensions(
+            DEFAULT_DIMENSIONS[0], DEFAULT_DIMENSIONS[1]
+        ).setPosition(DEFAULT_POSITION[0], DEFAULT_POSITION[1]).setColor(DEFAULT_COLOR)
+        button.setActiveColor(DEFAULT_ACTIVE_COLOR).setColor(DEFAULT_COLOR)
         return button
+
+    def createUpdatingTextBox(self) -> UpdatingTextBox:
+        """
+        This is a TextBox that updates its content every frame by calling a getter method that returns a string.
+        The bound function must not have any parameters and must return a string.
+        All the default parameters of TextBox apply here as well.
+        """
+        rect = UpdatingTextBox()
+        rect.setContent(DEFAULT_CONTENT).setFontSize(DEFAULT_FONT_SIZE).setDimensions(
+            DEFAULT_DIMENSIONS[0], DEFAULT_DIMENSIONS[1]
+        ).setPosition(DEFAULT_POSITION[0], DEFAULT_POSITION[1]).setColor(DEFAULT_COLOR)
+        return rect
