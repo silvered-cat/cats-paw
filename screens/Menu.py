@@ -1,4 +1,4 @@
-from shapes.ShapeFactory import ShapeFactory
+from shapes.ShapeFactory import sf
 from shapes.Shape import Shape
 from shapes.MenuButton import MenuButton
 from .Screen import Screen
@@ -25,7 +25,7 @@ class Menu(Screen):
 
     def __init__(self, gameState: Game) -> None:
         super().__init__(gameState)
-        self._shapes = ShapeFactory()
+        self._shapes = sf
         options: list[Shape] = [
             self.makeStartButton(gameState.getWindowSize()),
             self.makeQuitButton(gameState.getWindowSize()),

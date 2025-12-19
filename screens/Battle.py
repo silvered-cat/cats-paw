@@ -4,15 +4,13 @@ from screens.screensEnum import ScreensEnum
 from queue import Queue
 from shapes.Shape import Shape
 from state.Game import Game
-from shapes.ShapeFactory import ShapeFactory
+from shapes.ShapeFactory import sf
 from shapes.UpdatingTextBox import UpdatingTextBox
 from utils.ChoiceEnum import ChoiceEnum
 from utils.ChoiceCarousel import ChoiceCarousel
 from utils.choiceStringMapper import getChoiceString
 from utils.StatusEnums import StatusEnums
 from shapes.MenuButton import MenuButton
-
-sf = ShapeFactory()
 
 # position constants are multipliers of window size. Ex: (0.5, 0.5) is center of screen
 TOP_ROW_Y = 0.25

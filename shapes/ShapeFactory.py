@@ -62,3 +62,6 @@ class ShapeFactory:
             DEFAULT_DIMENSIONS[0], DEFAULT_DIMENSIONS[1]
         ).setPosition(DEFAULT_POSITION[0], DEFAULT_POSITION[1]).setColor(DEFAULT_COLOR)
         return rect
+
+
+sf = ShapeFactory()

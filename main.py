@@ -29,7 +29,7 @@ game = Game()
 game.setCurrentScreen(ScreensEnum.MENU)
 
 # Testing
-game.setCurrentScreen(ScreensEnum.BATTLE)
+# game.setCurrentScreen(ScreensEnum.BATTLE)
 
 
 # Create Screens

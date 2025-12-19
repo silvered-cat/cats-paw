@@ -1,5 +1,5 @@
 from shapes.Button import Button
-from pykraken import EventType, mouse, color, Color, Event, draw, Vec2
+from pykraken import EventType, mouse, color, Color, Event, draw, Vec2, collision
 
 
 class MenuButton(Button):
@@ -61,12 +61,8 @@ class MenuButton(Button):
         """
         if event.type == EventType.MOUSE_MOTION:
             mousePos = mouse.get_pos()
-            x = mousePos.x
-            y = mousePos.y
             rect = self.getRect()
-            isInsideHorizontally = rect.left <= x and x <= rect.right
-            isInsideVertically = rect.top <= y and y <= rect.bottom
-            isInside = isInsideHorizontally and isInsideVertically
+            isInside = collision.overlap(rect, mousePos)
 
             if isInside and not self.isActive():
                 self.activate()
