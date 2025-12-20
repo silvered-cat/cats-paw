@@ -11,3 +11,4 @@ class ScreensEnum(enum.IntEnum):
     BATTLE = enum.auto()
     RESOLVE = enum.auto()
     GAMEOVER = enum.auto()
+    VICTORY = enum.auto()

@@ -4,7 +4,9 @@ import pykraken as kn
 from utils.ChoiceEnum import ChoiceEnum
 from utils.StatusEnums import StatusEnums
 
-INIT_ROUND_TIME_LIMIT_SECONDS = 10.0
+INIT_ROUND_TIME_LIMIT_SECONDS = 10.0  # This it to prevent errors during init
+# POINTS_TO_VICTORY = 3
+POINTS_TO_VICTORY = 3
 
 
 class Game(State):
@@ -19,6 +21,13 @@ class Game(State):
         self._roundStatus: StatusEnums = StatusEnums.START
         initialScreen = ScreensEnum.MENU
         self.setCurrentScreen(initialScreen)
+        self._pointsToWin = POINTS_TO_VICTORY
+
+    def getPointsToWin(self) -> int:
+        return self._pointsToWin
+
+    def setPointsToWin(self, points: int):
+        self._pointsToWin = points
 
     def getRoundStatus(self) -> StatusEnums:
         return self._roundStatus
