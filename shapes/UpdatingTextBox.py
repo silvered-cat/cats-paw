@@ -3,6 +3,11 @@ from typing import Callable
 
 
 class UpdatingTextBox(TextBox):
+    """
+    A text box that consumes a Callable [[], str] to update its string contents.
+    It will automatically update to "I'm empty!" if no callable was set using setUpdateFunction method.
+    """
+
     def __init__(self):
         self._updateFunction: Callable[[], str] = lambda: "I'm empty!"
         super().__init__()
