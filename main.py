@@ -29,8 +29,8 @@ game = Game()
 game.setCurrentScreen(ScreensEnum.MENU)
 
 # Testing
-# game.setCurrentScreen(ScreensEnum.BATTLE)
-
+# game.setCurrentScreen(ScreensEnum.RESOLVE)
+# game._roundStatus = StatusEnums.END
 
 # Create Screens
 screens: dict[ScreensEnum, Screen] = {
