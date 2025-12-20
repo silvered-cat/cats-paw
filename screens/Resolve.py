@@ -1,6 +1,7 @@
 from queue import Queue
 from pykraken import Event, EventType
 from shapes.Shape import Shape
+from utils.ChoiceEnum import ChoiceEnum
 from .Screen import Screen
 from shapes.UpdatingTextBox import UpdatingTextBox
 from state.Game import Game
@@ -39,7 +40,7 @@ LOSS = "Computer Win!  "  # 13 chars
 MESSAGE_LENGTH = 13  # number of chars to display at a time.
 RENDER_TIME = 0.125
 RESET_TEXT_TIME_MARKER: None = None
-INIT_TIMER = 5.00
+INIT_TIMER = 3.00
 
 
 class Resolve(Screen):
@@ -117,12 +118,27 @@ class Resolve(Screen):
 
     # Should decide what the next screen should be based on results and game state while cleaning state.
     def _setNextScreenAndCleanup(self):
-        self._game.setCurrentScreen(ScreensEnum.BATTLE)
-        self._game.setRoundStatus(StatusEnums.START)
+        playerScore = self._game.getPlayerScore()
+        opponentScore = self._game.getNPCScore()
+        pointsToWin = self._game.getPointsToWin()
+        if playerScore < pointsToWin and opponentScore < pointsToWin:
+            self._game.setCurrentScreen(ScreensEnum.BATTLE)
+            self._game.setRoundStatus(StatusEnums.START)
+            self._cleanup()
+
+        elif playerScore >= pointsToWin:
+            self._game.setCurrentScreen(ScreensEnum.VICTORY)
+
+        else:
+            self._game.setCurrentScreen(ScreensEnum.GAMEOVER)
+
+    def _cleanup(self):
         self._outcome = None
         self._textTime = None
         self._marquee = None
         self._substring = ""
+        self._game.setPlayerChoice(ChoiceEnum.NONE)
+        self._game.setOpponentChoice(ChoiceEnum.NONE)
 
     # This is the "press any key to continue thing."
     def _awaitPlayerResponse(self, event: Event):

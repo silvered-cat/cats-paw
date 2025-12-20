@@ -1,9 +1,11 @@
 import pykraken as kn
 from screens.Battle import Battle
+from screens.GameOver import GameOver
 from screens.Menu import Menu
 from screens.Resolve import Resolve
 from queue import Queue
 from screens.Screen import Screen
+from screens.Victory import Victory
 from utils import Monitor
 from shapes.Shape import Shape
 from state.Game import Game
@@ -37,6 +39,8 @@ screens: dict[ScreensEnum, Screen] = {
     ScreensEnum.MENU: Menu(game),
     ScreensEnum.BATTLE: Battle(game),
     ScreensEnum.RESOLVE: Resolve(game),
+    ScreensEnum.GAMEOVER: GameOver(game),
+    ScreensEnum.VICTORY: Victory(game),
 }
 
 
